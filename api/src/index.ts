@@ -1,17 +1,6 @@
-import express from "express";
-import dotenv from "dotenv";
-
-dotenv.config();
-const app = express();
-
-app.use(express.json());
-
-const PORT = process.env.PORT;
-
-app.get("/ping", (req, res) => {
-  return res.send("pong");
-});
+import app from "./app";
+import { PORT } from "./config/envs";
 
 app.listen(PORT, () => {
-  console.log(`Server running, port: ${PORT}`);
+  console.log(`Server running, http://localhost:${PORT}`);
 });
