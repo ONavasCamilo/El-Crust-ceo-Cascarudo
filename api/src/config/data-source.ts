@@ -1,12 +1,12 @@
 import { DataSource } from "typeorm";
-import { passwordCamilo, usernameCamilo } from "./envs";
+import { DATABASE_PASSWORD, DATABASE_USERNAME, DATABASE_HOST } from "./envs";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
+    host: DATABASE_HOST,
     port: 5432,
-    username: usernameCamilo,
-    password: passwordCamilo,
+    username: DATABASE_USERNAME,
+    password: DATABASE_PASSWORD,
     database: "test",
     // synchronize: true,
     logging: true,
