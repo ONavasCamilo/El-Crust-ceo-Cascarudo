@@ -7,22 +7,24 @@ import {
   DATABASE_PORT,
 } from "./envs";
 import { Burger } from "../entities/Burger";
-import { Product } from "../entities/Product";
+import { User } from "../entities/User";
+import { Shopcart } from "../entities/Shopcart";
 
 export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: DATABASE_HOST,
-  port: Number(DATABASE_PORT),
-  username: DATABASE_USERNAME,
-  password: DATABASE_PASSWORD,
-  database: DATABASE_NAME,
-  synchronize: true,
-  logging: true,
-  entities: [Burger, Product],
-  subscribers: [],
-  migrations: [],
-  // dropSchema: true, //! elimina todo de la base de datos
+    type: "postgres",
+    host: DATABASE_HOST,
+    port: Number(DATABASE_PORT),
+    username: DATABASE_USERNAME,
+    password: DATABASE_PASSWORD,
+    database: DATABASE_NAME,
+    synchronize: true,
+    logging: true,
+    entities: [Burger, User, Shopcart],
+    subscribers: [], 
+    migrations: [],
+    dropSchema: true
 });
 
-export const BurgerRepository = AppDataSource.getRepository(Burger);
-export const ProductRepository = AppDataSource.getRepository(Product);
+export const BurgerModel = AppDataSource.getRepository(Burger);
+export const UserModel = AppDataSource.getRepository(User);
+export const ShopcartModel = AppDataSource.getRepository(Shopcart);
