@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../entities/User";
+import { hashPassword } from "../utils/passwordManager";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -9,7 +10,7 @@ export const createUser = async (req: Request, res: Response) => {
     const user = new User()
 
     user.username = username;
-    user.password = password;
+    user.password = await hashPassword(password);;
     user.email = email;
 
     await user.save();
