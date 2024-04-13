@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne } from "typeorm";
+import { Role } from "./Role";
 
-@Entity()
+@Entity("users")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -10,6 +11,9 @@ export class User extends BaseEntity {
   password: string;
   @Column({ unique: true })
   email: string;
+
+  @ManyToOne(() => Role, (role) => role.user)
+  role: Role;
 
   @CreateDateColumn()
   createdAt: Date;
