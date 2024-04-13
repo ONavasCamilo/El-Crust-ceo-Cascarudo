@@ -22,6 +22,7 @@ export const AppDataSource = new DataSource({
     entities: [Burger, User, Shopcart],
     subscribers: [], 
     migrations: [],
+    dropSchema: true
 });
 
 export const BurgerModel = AppDataSource.getRepository(Burger);
