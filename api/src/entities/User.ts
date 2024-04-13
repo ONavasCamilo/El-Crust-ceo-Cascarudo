@@ -3,13 +3,13 @@ import { Role } from "./Role";
 
 @Entity("users")
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number;
-  @Column({ unique: true })
+  @Column({ unique: true, type: "varchar", length: 100 })
   username: string;
-  @Column()
+  @Column({ type: "varchar", length: 100 })
   password: string;
-  @Column({ unique: true })
+  @Column({ unique: true, type: "varchar", length: 255 })
   email: string;
 
   @ManyToOne(() => Role, (role) => role.user)

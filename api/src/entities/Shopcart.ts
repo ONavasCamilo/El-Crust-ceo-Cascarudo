@@ -3,7 +3,7 @@ import { User } from "./User";
 
 @Entity("shopcarts")
 export class Shopcart {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "int" })
   id: number;
 
   @ManyToOne(() => User)
