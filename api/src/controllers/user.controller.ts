@@ -49,8 +49,6 @@ export const loginUser = async (req: Request, res: Response) => {
 
     if (!passwordIsCorrect) return res.status(401).send({ status: 401, error: "Incorrect credentials" });
 
-    console.log(userFound)
-
     const token = jwt.sign({ id: userFound.id, role: userFound.role }, SECRET, { expiresIn: 86400 });
 
     return res.json({ token });
