@@ -1,16 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Product } from "../entities/Product";
 import { Category } from "../entities/Category";
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, price, description, stock, category } = req.body;
 
-    if (!name || !price || !stock || !category) return res.status(400).json({ msg: "Failed creating product: name, price, stock and category are required" });
+    if (!name || !price || !stock || !category) return next({ message: "Failed creating product: name, price, stock and category are required", statusCode: 400 });
     const selectedCategory = await Category.findOneBy({ category });
 
-    if (!selectedCategory) return res.status(404).json({ msg: "Failed creating product: category not found" });
-
+    if (!selectedCategory) return next({ message: "Failed creating product: category not found", statusCode: 400 });
     // TODO: check what happen if the product is burger. we should create another route for burgers?
 
     const newProduct = new Product();
@@ -25,8 +24,8 @@ export const createProduct = async (req: Request, res: Response) => {
     return res.status(201).json({ product: newProduct });
   } catch (e) {
     if (e instanceof Error) {
-      console.log("error:", e.message);
-      res.status(400).json({ message: e.message });
+      return next({ statusCode: 400, message: e.message });
     }
+    next(e);
   }
 };
