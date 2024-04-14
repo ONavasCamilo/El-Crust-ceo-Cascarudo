@@ -1,3 +1,4 @@
+import { InsertResult } from "typeorm";
 import { Role } from "../entities/Role";
 
 const INITIAL_ROLES = [
@@ -6,11 +7,7 @@ const INITIAL_ROLES = [
   "user"
 ]
 
-export const seedRoles = async () => {
-
+export const seedRoles = (): Promise<InsertResult>[] => {
   const rolesPromises = INITIAL_ROLES.map(role => Role.insert({ role }));
-
-  await Promise.all(rolesPromises);
-
-  console.log(`Roles created: ${INITIAL_ROLES.join(", ")}`)
+  return rolesPromises;
 };
