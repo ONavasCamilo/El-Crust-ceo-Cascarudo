@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from "./Category";
 
 @Entity("products")
 export class Product {
@@ -12,7 +13,7 @@ export class Product {
   description: string;
   @Column({ type: "int" })
   stock: number;
-  @Column({ type: "varchar", length: 300 })
-  category: string;
+  @ManyToOne(() => Category, (category) => category.product)
+  category: Category;
   //relacion hamburger
 }
