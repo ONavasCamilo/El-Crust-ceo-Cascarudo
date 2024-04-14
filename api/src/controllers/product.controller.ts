@@ -29,3 +29,16 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
     next(e);
   }
 };
+
+export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const products = await Product.find({ relations: ["category"] });
+
+    return res.json({ products });
+  } catch (error) {
+    if (error instanceof Error) {
+      return next({ statusCode: 400, message: error.message });
+    }
+    next(error);
+  }
+};

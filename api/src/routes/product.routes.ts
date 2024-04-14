@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { isAdmin, verifyToken } from "../middlewares/auth";
-import { createProduct } from "../controllers/product.controller";
+import { createProduct, getProducts } from "../controllers/product.controller";
 
 const productRouter = Router();
+
+productRouter.get("/", getProducts);
 
 productRouter.post("/create", [verifyToken, isAdmin], createProduct);
 
