@@ -1,8 +1,7 @@
-import { InsertResult } from "typeorm";
 import { Product } from "../entities/Product";
 import { Category } from "../entities/Category";
 
-const INITIAL_ROLES = [
+const INITIAL_PRODUCTS = [
   {
     "name": "Coca Cola Grande",
     "price": 2.5,
@@ -26,7 +25,7 @@ const INITIAL_ROLES = [
 export const seedProducts = async () => {
   const categories = await Category.find();
 
-  const productPromises = INITIAL_ROLES.map(product => {
+  const productPromises = INITIAL_PRODUCTS.map(product => {
     const objProduct = {
       name: product.name,
       price: product.price,
