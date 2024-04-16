@@ -6,3 +6,6 @@ export const DATABASE_PORT = process.env.DATABASE_PORT;
 export const DATABASE_USERNAME = process.env.DATABASE_USERNAME;
 export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 export const DATABASE_NAME = process.env.DATABASE_NAME;
+
+export const RESTART_SCHEMA = true;
+export const SECRET = "secret!";
