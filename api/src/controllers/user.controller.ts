@@ -1,22 +1,22 @@
 import jwt from "jsonwebtoken";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "../entities/User";
 import { comparePasswords, hashPassword } from "../utils/passwordManager";
 import { SECRET } from "../config/envs";
 import { Role } from "../entities/Role";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password, email } = req.body;
-    if (!username || !password || !email) throw new Error("Username, password and email are required fields.");
+    if (!username || !password || !email) return next({ message: "Username, password and email are required fields.", statusCode: 401});
 
     const role = await Role.findOneBy({ role: "user" });
-    if (!role) throw new Error("Internal error"); // -> when this happen that means we dont have the table "roles" with the default values.
+    if (!role) return next({ message: "internal error", statusCode: 500}); // -> when this happen that means we dont have the table "roles" with the default values.
 
     const newUser = new User()
 
     newUser.username = username;
-    newUser.password = await hashPassword(password);;
+    newUser.password = await hashPassword(password);
     newUser.email = email;
     newUser.role = role;
 

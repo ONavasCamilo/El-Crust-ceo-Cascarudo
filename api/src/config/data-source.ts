@@ -22,7 +22,7 @@ export const AppDataSource = new DataSource({
     password: DATABASE_PASSWORD,
     database: DATABASE_NAME,
     synchronize: RESTART_SCHEMA,
-    logging: true,
+    logging: ["error"],
     entities: [Burger, User, Shopcart, Role, Product, Category],
     subscribers: [], 
     migrations: [],

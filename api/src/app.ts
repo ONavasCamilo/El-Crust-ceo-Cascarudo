@@ -15,9 +15,11 @@ app.all("*", (req, _, next) => {
 });
 
 app.use((err: ErrorHandler, _: Request, res: Response): void => {
+  console.log("llegó al error");
   err.statusCode = err.statusCode ?? 500;
   err.message = err.message ?? "Internal Error";
   console.error(err);
+  
   res.status(err.statusCode).json({ message: err.message, status: err.statusCode });
 });
 
