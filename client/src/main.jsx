@@ -1,4 +1,4 @@
 import { render } from 'preact'
-import { App } from './app.jsx'
+import { App } from './components/App/App'
 
 render(<App />, document.getElementById('app'))
