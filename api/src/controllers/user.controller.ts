@@ -4,25 +4,43 @@ import { User } from "../entities/User";
 import { comparePasswords, hashPassword } from "../utils/passwordManager";
 import { SECRET } from "../config/envs";
 import { Role } from "../entities/Role";
+import { getUserService, getUsersService, loginUserService, registerUserService } from "../services/user.service";
+
+export const getUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await getUsersService();
+    res.status(200).json(users)
+  } catch (e) {
+    if (e instanceof Error) {
+      res.status(500).json({ message: e.message });
+    }
+  }
+}
+
+export const getUser = async (req: Request, res: Response) => {
+  let { id, username, email } = req.query
+  try {
+    if (!username && !id && !email) return res.status(401).send({ message: "Must send id, username or email.", statusCode: 401 });
+    if (username) username = String(username);
+    if (email) email = String(email);
+
+    const user = await getUserService({ id: Number(id), username, email });
+    if (!user) return res.status(404).send({ status: 404, error: "User not found" });
+
+    res.status(200).json(user)
+  } catch (e) {
+    if (e instanceof Error) {
+      res.status(500).json({ message: e.message })
+    }
+  }
+}
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
-    if (!username || !password || !email) return res.status(401).send({ message: "Username, password and email are required fields.", statusCode: 401});
-
-    const role = await Role.findOneBy({ role: "user" });
-    if (!role) return res.status(500).send({ msg: "Internal Error", status: 500 }); // -> when this happen that means we dont have the table "roles" with the default values.
-
-    const newUser = new User()
-
-    newUser.username = username;
-    newUser.password = await hashPassword(password);
-    newUser.email = email;
-    newUser.role = role;
-
-    await newUser.save();
+    if (!username || !password || !email) return res.status(401).send({ message: "Username, password and email are required fields.", statusCode: 401 });
+    const newUser = await registerUserService({ username, password, email })
     const token = jwt.sign({ id: newUser.id, role: newUser.role }, SECRET, { expiresIn: 86400 });
-
     return res.status(201).json({ token });
   } catch (e) {
     if (e instanceof Error) {
@@ -38,9 +56,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!password) return res.status(400).send({ status: 400, error: "Password is required" });
     if (!username && !email) return res.status(400).send({ status: 400, error: "Username or email is required" });
 
-    const userFound = username
-      ? await User.findOne({ where: { username }, relations: ["role"] })
-      : await User.findOne({ where: { email }, relations: ["role"] });
+    const userFound = await loginUserService({ username, email })
 
     if (!userFound) return res.status(404).send({ status: 404, error: "User not found" });
 
