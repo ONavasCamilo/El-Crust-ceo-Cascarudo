@@ -32,6 +32,5 @@ export const AppDataSource = new DataSource({
 export const BurgerModel = AppDataSource.getRepository(Burger);
 export const UserModel = AppDataSource.getRepository(User);
 export const ShopcartModel = AppDataSource.getRepository(Shopcart);
-export const RoleModel = AppDataSource.getRepository(Role);
 export const CategoryModel = AppDataSource.getRepository(Category);
 export const ProductModel = AppDataSource.getRepository(Product);

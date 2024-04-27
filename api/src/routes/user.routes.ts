@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { registerUser, loginUser } from "../controllers/user.controller";
+import { registerUser, loginUser, getUsers, getUser } from "../controllers/user.controller";
 import { verifyToken } from "../middlewares/auth";
 
 const userRouter = Router();
+
+userRouter.get("/", getUsers);
+
+userRouter.get("/find", getUser);
 
 userRouter.post("/register", registerUser);
 
