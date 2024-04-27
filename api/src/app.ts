@@ -10,17 +10,16 @@ app.use(morgan('dev'));
 
 app.use("/api", routes);
 
-app.all("*", (req, _, next) => {
-  next({ message: `Route ${req.originalUrl} not found`, statusCode: 404 });
+app.use("/", (req, res) => {
+  res.status(404).send({ message: `Route ${req.originalUrl} not found` })
 });
 
-app.use((err: ErrorHandler, _: Request, res: Response): void => {
-  console.log("llegó al error");
-  err.statusCode = err.statusCode ?? 500;
-  err.message = err.message ?? "Internal Error";
-  console.error(err);
-  
-  res.status(err.statusCode).json({ message: err.message, status: err.statusCode });
-});
+// app.use((error: ErrorHandler, req: Request, res: Response): void => {
+//   console.log("error:")
+//   error.status = error.status ?? 500;
+//   error.message = error.message ?? "Internal Error";
+
+//   res.status(error.status).json({ message: error.message, status: error.status });
+// });
 
 export default app;

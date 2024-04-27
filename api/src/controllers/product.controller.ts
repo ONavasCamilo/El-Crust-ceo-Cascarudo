@@ -6,10 +6,10 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
   try {
     const { name, price, description, stock, category } = req.body;
 
-    if (!name || !price || !stock || !category) return next({ message: "Failed creating product: name, price, stock and category are required", statusCode: 400 });
+    if (!name || !price || !stock || !category) return res.status(400).send({ message: "Failed creating product: name, price, stock and category are required", statusCode: 400 });
     const selectedCategory = await Category.findOneBy({ category });
 
-    if (!selectedCategory) return next({ message: "Failed creating product: category not found", statusCode: 400 });
+    if (!selectedCategory)  return res.status(400).send({ message: "Failed creating product: category not found", statusCode: 400 });
     // TODO: check what happen if the product is burger. we should create another route for burgers?
 
     const newProduct = new Product();

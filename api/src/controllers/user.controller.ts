@@ -1,17 +1,17 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { User } from "../entities/User";
 import { comparePasswords, hashPassword } from "../utils/passwordManager";
 import { SECRET } from "../config/envs";
 import { Role } from "../entities/Role";
 
-export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
-    if (!username || !password || !email) return next({ message: "Username, password and email are required fields.", statusCode: 401});
+    if (!username || !password || !email) return res.status(401).send({ message: "Username, password and email are required fields.", statusCode: 401});
 
     const role = await Role.findOneBy({ role: "user" });
-    if (!role) return next({ message: "internal error", statusCode: 500}); // -> when this happen that means we dont have the table "roles" with the default values.
+    if (!role) return res.status(500).send({ msg: "Internal Error", status: 500 }); // -> when this happen that means we dont have the table "roles" with the default values.
 
     const newUser = new User()
 
@@ -26,8 +26,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     return res.status(201).json({ token });
   } catch (e) {
     if (e instanceof Error) {
-      console.log("error:", e.message);
-      res.status(400).json({ message: e.message });
+      return res.status(500).send({ msg: e.message, status: 500 });
     }
   }
 };
@@ -36,8 +35,8 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
-    if (!password) throw new Error("Password is required");
-    if (!username && !email) throw new Error("Username or email is required");
+    if (!password) return res.status(400).send({ status: 400, error: "Password is required" });
+    if (!username && !email) return res.status(400).send({ status: 400, error: "Username or email is required" });
 
     const userFound = username
       ? await User.findOne({ where: { username }, relations: ["role"] })
@@ -54,8 +53,7 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.json({ token });
   } catch (e) {
     if (e instanceof Error) {
-      console.log("error:", e.message);
-      res.status(400).json({ message: e.message });
+      res.status(500).json({ message: e.message });
     }
   }
 }

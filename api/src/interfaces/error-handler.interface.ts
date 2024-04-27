@@ -1,4 +1,4 @@
-export interface ErrorHandler {
+export interface ErrorHandler extends Error {
   message: string;
-  statusCode: number;
+  status: number;
 }
