@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./Category";
+import { Ingredient } from "./Ingredient";
 
 @Entity("products")
 export class Product extends BaseEntity {
@@ -15,5 +16,6 @@ export class Product extends BaseEntity {
   stock: number;
   @ManyToOne(() => Category, (category) => category.product)
   category: Category;
-  //relacion hamburger
+  @ManyToMany(() => Ingredient, (ingredient) => ingredient.product)
+  ingredient: Ingredient;
 }

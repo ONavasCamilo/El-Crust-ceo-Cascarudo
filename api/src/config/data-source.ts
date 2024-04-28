@@ -7,7 +7,7 @@ import {
   DATABASE_PORT,
   RESTART_SCHEMA,
 } from "./envs";
-import { Burger } from "../entities/Burger";
+import { Burger } from "../entities/Ingredient";
 import { User } from "../entities/User";
 import { Shopcart } from "../entities/Shopcart";
 import { Role } from "../entities/Role";
