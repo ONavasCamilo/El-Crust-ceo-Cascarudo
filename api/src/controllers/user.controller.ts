@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
-import { User } from "../entities/User";
-import { comparePasswords, hashPassword } from "../utils/passwordManager";
+import { comparePasswords } from "../utils/passwordManager";
 import { SECRET } from "../config/envs";
-import { Role } from "../entities/Role";
-import { getUserService, getUsersService, loginUserService, registerUserService } from "../services/user.service";
+import { deleteUserService, getUserService, getUsersService, loginUserService, registerUserService } from "../services/user.service";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -70,6 +68,24 @@ export const loginUser = async (req: Request, res: Response) => {
   } catch (e) {
     if (e instanceof Error) {
       res.status(500).json({ message: e.message });
+    }
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    let { id, username, email } = req.body
+
+    if (!username && !id && !email) return res.status(401).send({ message: "Must send id, username or email.", statusCode: 401 });
+
+    await deleteUserService({ id, username, email });
+
+    res.json({ msg: "User removed succesfully." });
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message === "User not found") return res.status(404).json({ message: error.message })
+
+      res.status(500).json({ message: error.message });
     }
   }
 }
