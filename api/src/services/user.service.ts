@@ -37,12 +37,18 @@ export const loginUserService = async ({ username, email }: LoginUser) => {
 
 export const deleteUserService = async ({ id, username, email }: DeleteUser) => {
   if (id) {
-    return await UserModel.delete({ id })
+    const user = await UserModel.findOne({ where: { id } })
+    if (!user) throw new Error("User not found");
+    await user?.remove()
   }
   else if (username) {
-    return await UserModel.delete({ username })
+    const user = await UserModel.findOne({ where: { username } })
+    if (!user) throw new Error("User not found");
+    await user?.remove()
   }
   else if (email) {
-    return await UserModel.delete({ email })
+    const user = await UserModel.findOne({ where: { email } })
+    if (!user) throw new Error("User not found");
+    await user?.remove()
   }
 }

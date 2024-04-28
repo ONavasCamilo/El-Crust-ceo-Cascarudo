@@ -73,11 +73,19 @@ export const loginUser = async (req: Request, res: Response) => {
 }
 
 export const deleteUser = async (req: Request, res: Response) => {
-  let { id, username, email } = req.body
+  try {
+    let { id, username, email } = req.body
 
-  if (!username && !id && !email) return res.status(401).send({ message: "Must send id, username or email.", statusCode: 401 });
+    if (!username && !id && !email) return res.status(401).send({ message: "Must send id, username or email.", statusCode: 401 });
 
-  await deleteUserService({ id, username, email });
+    await deleteUserService({ id, username, email });
 
-  res.json({ msg: "User removed succesfully." });
+    res.json({ msg: "User removed succesfully." });
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message === "User not found") return res.status(404).json({ message: error.message })
+
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
