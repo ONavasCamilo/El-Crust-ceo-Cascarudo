@@ -1,7 +1,7 @@
 import { UserModel } from "../config/data-source";
 import { hashPassword } from "../utils/passwordManager";
 import RoleModel from "../repositories/rol.repository";
-import { LoginUser, RegisterUser } from './../interfaces/user.interface';
+import { DeleteUser, LoginUser, RegisterUser } from './../interfaces/user.interface';
 
 export const getUsersService = async () => {
   const users = await UserModel.find();
@@ -33,4 +33,16 @@ export const loginUserService = async ({ username, email }: LoginUser) => {
   return username
     ? await UserModel.findOne({ where: { username }, relations: ["role"] })
     : await UserModel.findOne({ where: { email }, relations: ["role"] });
+}
+
+export const deleteUserService = async ({ id, username, email }: DeleteUser) => {
+  if (id) {
+    return await UserModel.delete({ id })
+  }
+  else if (username) {
+    return await UserModel.delete({ username })
+  }
+  else if (email) {
+    return await UserModel.delete({ email })
+  }
 }
