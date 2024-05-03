@@ -6,7 +6,7 @@ export class Ingredient {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  ingredients: any;
+  ingredients: string;
   @ManyToMany(() => Product, (product) => product.ingredient)
   @JoinColumn()
   product: Product;
