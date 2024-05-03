@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { User } from "./User";
 import { Product } from "./Product";
 
@@ -11,7 +11,8 @@ export class Shopcart {
   user: User;
 
   @ManyToMany(() => Product)
-  product: Product;
+  @JoinTable()
+  product: Product[];
 
   @Column({ default: false })
   is_completed: boolean;
