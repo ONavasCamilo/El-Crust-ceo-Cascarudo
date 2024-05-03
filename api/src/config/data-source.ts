@@ -7,12 +7,12 @@ import {
   DATABASE_PORT,
   RESTART_SCHEMA,
 } from "./envs";
-import { Burger } from "../entities/Ingredient";
 import { User } from "../entities/User";
 import { Shopcart } from "../entities/Shopcart";
 import { Role } from "../entities/Role";
 import { Category } from "../entities/Category";
 import { Product } from "../entities/Product";
+import { Ingredient } from "../entities/Ingredient";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -23,13 +23,13 @@ export const AppDataSource = new DataSource({
     database: DATABASE_NAME,
     synchronize: RESTART_SCHEMA,
     logging: ["error"],
-    entities: [Burger, User, Shopcart, Role, Product, Category],
+    entities: [Ingredient, User, Shopcart, Role, Product, Category],
     subscribers: [], 
     migrations: [],
     dropSchema: RESTART_SCHEMA
 });
 
-export const BurgerModel = AppDataSource.getRepository(Burger);
+export const BurgerModel = AppDataSource.getRepository(Ingredient);
 export const UserModel = AppDataSource.getRepository(User);
 export const ShopcartModel = AppDataSource.getRepository(Shopcart);
 export const CategoryModel = AppDataSource.getRepository(Category);

@@ -1,12 +1,14 @@
 import express, { NextFunction, Request, Response } from "express";
 import morgan from 'morgan'
 import routes from "./routes/index.routes";
-import { ErrorHandler } from "./interfaces/error-handler.interface";
+import cors from "cors";
+// import { ErrorHandler } from "./interfaces/error-handler.interface";
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 app.use("/api", routes);
 

@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "preact": "^10.19.6"
+    "@tanstack/react-query": "^5.32.1",
+    "axios": "^1.6.8",
+    "preact": "^10.19.6",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
