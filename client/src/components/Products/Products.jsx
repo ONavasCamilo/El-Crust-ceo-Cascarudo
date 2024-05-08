@@ -8,7 +8,7 @@ const Products = () => {
       {isFetching && <p>Cargando.. owo</p>}
       {!isFetching && (
         data.map(product => {
-          return <p>{product.name}</p>
+          return <p key={product.name}>{product.name}</p>
         })
       )}
       <button onClick={refetch}>Reload</button>
