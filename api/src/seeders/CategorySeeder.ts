@@ -1,10 +1,11 @@
 import { InsertResult } from "typeorm";
 import { Category } from "../entities/Category";
+import { Categories } from "../interfaces/category.enum";
 
 const INITIAL_CATEGORIES = [
-  "drink",
-  "burger",
-  "sides" // -> acompañamiento, segun chatgpt
+  Categories.DRINK,
+  Categories.BURGER,
+  Categories.SIDE,
 ]
 
 export const seedCategories = (): Promise<InsertResult>[] => {

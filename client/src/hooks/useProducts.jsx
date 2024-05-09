@@ -7,7 +7,7 @@ const getProductsFromAPI = async () => {
 };
 
 const useProducts = () => {
-  const query = useQuery({ queryKey: ["test"], queryFn: getProductsFromAPI, refetchOnWindowFocus: false });
+  const query = useQuery({ queryKey: ["products"], queryFn: getProductsFromAPI, refetchOnWindowFocus: false });
   return query;
 }
 
