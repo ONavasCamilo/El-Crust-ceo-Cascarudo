@@ -1,10 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne } from "typeorm";
 import { Role } from "./Role";
+import { randomUUID } from "crypto";
 
 @Entity("users")
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string = randomUUID();
   @Column({ unique: true, type: "varchar", length: 100 })
   username: string;
   @Column({ type: "varchar", length: 100 })

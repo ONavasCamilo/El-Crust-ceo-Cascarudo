@@ -23,13 +23,14 @@ export const AppDataSource = new DataSource({
     database: DATABASE_NAME,
     synchronize: RESTART_SCHEMA,
     logging: ["error"],
+    // logging: true,
     entities: [Ingredient, User, Shopcart, Role, Product, Category],
     subscribers: [], 
     migrations: [],
     dropSchema: RESTART_SCHEMA
 });
 
-export const BurgerModel = AppDataSource.getRepository(Ingredient);
+export const IngredientModel = AppDataSource.getRepository(Ingredient);
 export const UserModel = AppDataSource.getRepository(User);
 export const ShopcartModel = AppDataSource.getRepository(Shopcart);
 export const CategoryModel = AppDataSource.getRepository(Category);

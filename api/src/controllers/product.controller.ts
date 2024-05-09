@@ -16,11 +16,11 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { name, price, description, stock, category } = req.body;
+    const { name, price, description, stock, category, ingredients } = req.body;
 
     if (!name || !price || !stock || !category) return res.status(400).send({ message: "Failed creating product: name, price, stock and category are required", statusCode: 400 });
 
-    const newProduct = await createProductService({ name, price, description, stock, category })
+    const newProduct = await createProductService({ name, price, description, stock, category, ingredients })
 
     return res.status(201).json({ product: newProduct });
   } catch (error) {
