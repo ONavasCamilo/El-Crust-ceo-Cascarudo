@@ -21,8 +21,9 @@ export const getUser = async (req: Request, res: Response) => {
     if (!username && !id && !email) return res.status(401).send({ message: "Must send id, username or email.", statusCode: 401 });
     if (username) username = String(username);
     if (email) email = String(email);
+    if (id) id = String(id)
 
-    const user = await getUserService({ id: Number(id), username, email });
+    const user = await getUserService({ id, username, email });
     if (!user) return res.status(404).send({ status: 404, error: "User not found" });
 
     res.status(200).json(user)
