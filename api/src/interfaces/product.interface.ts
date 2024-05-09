@@ -4,4 +4,5 @@ export interface CreateProduct {
     description?: string | undefined;
     stock: number;
     category: string;
+    //Ingredientes
 }

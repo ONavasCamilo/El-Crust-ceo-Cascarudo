@@ -10,7 +10,7 @@ export interface LoginUser {
 }
 
 export interface DeleteUser {
-  id: number | undefined;
+  id: string | undefined;
   username: string | undefined;
   email: string | undefined;
 }
