@@ -8,7 +8,7 @@ export const getUsersService = async () => {
   return users;
 }
 
-export const getUserService = async ({ id, username, email }: { id: number, username: string | undefined, email: string | undefined }) => {
+export const getUserService = async ({ id, username, email }: { id: string | undefined, username: string | undefined, email: string | undefined }) => {
   if (id) {
     return await UserModel.findBy({ id })
   }
