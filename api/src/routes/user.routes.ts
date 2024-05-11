@@ -4,7 +4,7 @@ import { verifyToken, isAdmin } from "../middlewares/auth";
 
 const userRouter = Router();
 
-userRouter.get("/", getUsers);
+userRouter.get("/", [verifyToken, isAdmin], getUsers);
 
 userRouter.get("/find", getUser);
 
