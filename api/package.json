@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn ./src/index.ts",
     "build": "tsc",
-    "start": "nodemon ./build/index.js"
+    "start": "node ./build/index.js"
   },
   "keywords": [],
   "author": "",
