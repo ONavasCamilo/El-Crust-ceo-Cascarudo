@@ -17,7 +17,7 @@ import { Ingredient } from "../entities/Ingredient";
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: DATABASE_HOST,
-    port: Number(DATABASE_PORT),
+    port: DATABASE_PORT as unknown as number,
     username: DATABASE_USERNAME,
     password: DATABASE_PASSWORD,
     database: DATABASE_NAME,
