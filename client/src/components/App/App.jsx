@@ -4,6 +4,7 @@ import Products from "../Products/Products"
 import Login from './../Forms/Login';
 import Register from '../Forms/Register';
 import CreateProduct from '../Forms/CreateProduct';
+import { ProfileUser } from '../Profile/ProfileUser';
 
 export const App = () => {
   return (
@@ -14,6 +15,7 @@ export const App = () => {
         <Login path="/login" />
         <Register path="/register" />
         <CreateProduct path="/create-product" />
+        <ProfileUser path="/profile-user" />
       </Router>
     </>
   )
