@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { userStore } from "../store/store";
 import { jwtDecode } from "jwt-decode";
-import { route } from "preact-router";
 
 const useAuth = () => {
   const loginUser = async (body) => {
@@ -18,7 +17,6 @@ const useAuth = () => {
   const onAuthSuccess = async (data) => {
     const decodedToken = jwtDecode(data.token);
     setUser(({ isLoggedIn: true, role: decodedToken.role.role, id: decodedToken.id, token: data.token }));
-    route("/user-profile")
   }
 
   const { setUser } = userStore((state) => state);
