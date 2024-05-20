@@ -4,7 +4,7 @@ import Products from "../Products/Products"
 import Login from './../Forms/Login';
 import Register from '../Forms/Register';
 import CreateProduct from '../Forms/CreateProduct';
-import { ProfileUser } from '../Profile/ProfileUser';
+import { UserProfile } from '../Profile/UserProfile';
 
 export const App = () => {
   return (
@@ -15,7 +15,7 @@ export const App = () => {
         <Login path="/login" />
         <Register path="/register" />
         <CreateProduct path="/create-product" />
-        <ProfileUser path="/profile-user" />
+        <UserProfile path="/user-profile" />
       </Router>
     </>
   )

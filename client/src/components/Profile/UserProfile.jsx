@@ -1,6 +1,6 @@
 import { userStore } from "../../store/store";
 
-export const ProfileUser = () => {
+export const UserProfile = () => {
   const user = userStore((state) => state);
 
   return (

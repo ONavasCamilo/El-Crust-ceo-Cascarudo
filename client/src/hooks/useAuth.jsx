@@ -18,7 +18,7 @@ const useAuth = () => {
   const onAuthSuccess = async (data) => {
     const decodedToken = jwtDecode(data.token);
     setUser(({ isLoggedIn: true, role: decodedToken.role.role, id: decodedToken.id, token: data.token }));
-    route("/profile-user")
+    route("/user-profile")
   }
 
   const { setUser } = userStore((state) => state);
