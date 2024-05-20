@@ -43,7 +43,7 @@ export const registerUser = async (req: Request, res: Response) => {
     return res.status(201).json({ token });
   } catch (e) {
     if (e instanceof Error) {
-      return res.status(500).send({ msg: e.message, status: 500 });
+      return res.status(500).send({ message: e.message, status: 500 });
     }
   }
 };

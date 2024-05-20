@@ -40,6 +40,8 @@ const Register = () => {
     passwordConfirmation: "",
   });
 
+  console.log({registerError})
+
   const handleInputChange = (e) => {
     setFormData((oldState) => ({ ...oldState, [e.target.name]: e.target.value }))
   }

@@ -8,15 +8,22 @@ const routes = [
   },
   {
     path: "/login",
-    label: "Login"
+    label: "Login",
+    showOnlyOffline: true,
   },
   {
     path: "/register",
-    label: "Registrarse"
+    label: "Registrarse",
+    showOnlyOffline: true,
+  },
+  {
+    path: "/create-product",
+    label: "Crear Producto"
   },
 ]
 
 const Header = () => {
+
   return (
     <header className={style.header}>
       <nav className={style.container}>
