@@ -10,12 +10,16 @@ const routes = [
     path: "/login",
     label: "Login"
   },
+  {
+    path: "/register",
+    label: "Registrarse"
+  },
 ]
 
 const Header = () => {
   return (
-    <header>
-      <nav>
+    <header className={style.header}>
+      <nav className={style.container}>
         {
           routes.map(r => {
             return (

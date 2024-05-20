@@ -52,16 +52,16 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
-    if (!password) return res.status(400).send({ status: 400, error: "Password is required" });
-    if (!username && !email) return res.status(400).send({ status: 400, error: "Username or email is required" });
+    if (!password) return res.status(400).send({ status: 400, message: "Password is required" });
+    if (!username && !email) return res.status(400).send({ status: 400, message: "Username or email is required" });
 
     const userFound = await loginUserService({ username, email })
 
-    if (!userFound) return res.status(404).send({ status: 404, error: "User not found" });
+    if (!userFound) return res.status(404).send({ status: 404, message: "User not found" });
 
     const passwordIsCorrect = await comparePasswords(password, userFound.password);
 
-    if (!passwordIsCorrect) return res.status(401).send({ status: 401, error: "Incorrect credentials" });
+    if (!passwordIsCorrect) return res.status(401).send({ status: 401, message: "Incorrect credentials" });
 
     const token = jwt.sign({ id: userFound.id, role: userFound.role }, SECRET, { expiresIn: 86400 });
 

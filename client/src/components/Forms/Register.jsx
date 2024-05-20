@@ -11,19 +11,33 @@ const fields = [
     label: "Nombre de Usuario"
   },
   {
+    type: "email",
+    placeholder: "email@test.com",
+    name: "email",
+    label: "Email"
+  },
+  {
     type: "password",
     placeholder: "*********",
     name: "password",
     label: "Contraseña"
   },
+  {
+    type: "password",
+    placeholder: "*********",
+    name: "passwordConfirmation",
+    label: "Repetir contraseña"
+  },
 ]
 
-const Login = () => {
-  const { login, loginError } = useAuth();
+const Register = () => {
+  const { register, registerError } = useAuth();
 
   const [formData, setFormData] = useState({
     username: "",
-    password: ""
+    email: "",
+    password: "",
+    passwordConfirmation: "",
   });
 
   const handleInputChange = (e) => {
@@ -32,11 +46,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    login(formData);
+    register(formData);
   }
 
   return (
-    <Form title={"Iniciar Sesión"}>
+    <Form title={"Registrarse "}>
       {fields.map(input => {
         return (
           <Field
@@ -50,11 +64,10 @@ const Login = () => {
           />
         )
       })}
-      <p>Olvidé mi contraseña</p>
-      <button onClick={handleLogin}>Iniciar Sesión</button>
-      {loginError && <p>{loginError.response.data.message}</p>}
+      <button onClick={handleLogin}>Registrarse</button>
+      {registerError && <p >{registerError.response.data.message}</p>}
     </Form>
   )
 }
 
-export default Login
+export default Register;
