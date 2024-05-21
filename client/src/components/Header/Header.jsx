@@ -1,6 +1,7 @@
 import { Link } from 'preact-router/match';
 import style from './Header.module.css'
 import { userStore } from '../../store/store';
+import useAuth from '../../hooks/useAuth';
 
 const routes = [
   {
@@ -26,6 +27,7 @@ const routes = [
 
 const Header = () => {
   const { user } = userStore((state) => state);
+  const { logout } = useAuth();
 
   const renderLinks = () => {
     const routesToRender = [];
@@ -51,6 +53,10 @@ const Header = () => {
               </Link>
             )
           })
+        }
+        {
+          user.token &&
+          <button onClick={logout}>Logout</button>
         }
       </nav>
     </header>
