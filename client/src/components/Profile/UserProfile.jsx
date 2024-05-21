@@ -1,7 +1,7 @@
 import { userStore } from "../../store/store";
 
 export const UserProfile = () => {
-  const user = userStore((state) => state);
+  const { user } = userStore((state) => state);
 
   return (
     <div>
