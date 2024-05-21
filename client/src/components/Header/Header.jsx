@@ -19,6 +19,11 @@ const routes = [
     showIfOffline: true,
   },
   {
+    path: "/user-profile",
+    label: "Perfil",
+    showIfUser: true,
+  },
+  {
     path: "/create-product",
     label: "Crear Producto",
     showIfAdmin: true,
@@ -35,6 +40,7 @@ const Header = () => {
     for (let i = 0; i < routes.length; i++) {
       const currentRoute = routes[i];
       if (currentRoute.showIfOffline && user.token) continue;
+      if (currentRoute.showIfUser && !user.token) continue;
       if (currentRoute.showIfAdmin && user.role !== "admin") continue;
       routesToRender.push(currentRoute);
     }

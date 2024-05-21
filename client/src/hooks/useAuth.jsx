@@ -27,7 +27,7 @@ const useAuth = () => {
     localStorage.setItem("user", JSON.stringify(userData));
 
     setUser(userData);
-    route("/user-profile")
+    route("/user-profile", true)
   }
 
   const getUserFromLocalstorage = () => {
@@ -56,6 +56,7 @@ const useAuth = () => {
   const logout = () => {
     localStorage.removeItem("user");
     setUser({});
+    route("/");
   }
 
   return {
