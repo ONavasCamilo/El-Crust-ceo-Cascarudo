@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import Field from '../Field/Field';
 import useAuth from '../../hooks/useAuth';
 import Form from './Form';
+import FormContainer from './FormContainer';
 
 const fields = [
   {
@@ -36,24 +37,26 @@ const Login = () => {
   }
 
   return (
-    <Form title={"Iniciar Sesión"}>
-      {fields.map(input => {
-        return (
-          <Field
-            key={input.name}
-            type={input.type}
-            placeholder={input.placeholder}
-            name={input.name}
-            value={formData[input.name]}
-            label={input.label}
-            onChange={handleInputChange}
-          />
-        )
-      })}
-      <p>Olvidé mi contraseña</p>
-      <button onClick={handleLogin}>Iniciar Sesión</button>
-      {loginError && <p>{loginError.response.data.message}</p>}
-    </Form>
+    <FormContainer title={"Iniciar Sesión"}>
+      <Form>
+        {fields.map(input => {
+          return (
+            <Field
+              key={input.name}
+              type={input.type}
+              placeholder={input.placeholder}
+              name={input.name}
+              value={formData[input.name]}
+              label={input.label}
+              onChange={handleInputChange}
+            />
+          )
+        })}
+        <p>Olvidé mi contraseña</p>
+        <button onClick={handleLogin}>Iniciar Sesión</button>
+        {loginError && <p>{loginError.response.data.message}</p>}
+      </Form>
+    </FormContainer>
   )
 }
 

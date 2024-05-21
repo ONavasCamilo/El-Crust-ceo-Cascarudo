@@ -7,5 +7,6 @@ export const productsStore = create((set) => ({
 
 export const userStore = create((set) => ({
   user: {},
-  setUser: (user) => set(() => ({ user })),
+  setUser: (user) => set(() => ({ user, loading: false })),
+  loading: true,
 }));

@@ -1,6 +1,7 @@
 import { Link } from 'preact-router/match';
 import style from './Header.module.css'
 import { userStore } from '../../store/store';
+import useAuth from '../../hooks/useAuth';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     showIfOffline: true,
   },
   {
+    path: "/user-profile",
+    label: "Perfil",
+    showIfUser: true,
+  },
+  {
     path: "/create-product",
     label: "Crear Producto",
     showIfAdmin: true,
@@ -26,6 +32,7 @@ const routes = [
 
 const Header = () => {
   const { user } = userStore((state) => state);
+  const { logout } = useAuth();
 
   const renderLinks = () => {
     const routesToRender = [];
@@ -33,6 +40,7 @@ const Header = () => {
     for (let i = 0; i < routes.length; i++) {
       const currentRoute = routes[i];
       if (currentRoute.showIfOffline && user.token) continue;
+      if (currentRoute.showIfUser && !user.token) continue;
       if (currentRoute.showIfAdmin && user.role !== "admin") continue;
       routesToRender.push(currentRoute);
     }
@@ -51,6 +59,10 @@ const Header = () => {
               </Link>
             )
           })
+        }
+        {
+          user.token &&
+          <button onClick={logout}>Logout</button>
         }
       </nav>
     </header>

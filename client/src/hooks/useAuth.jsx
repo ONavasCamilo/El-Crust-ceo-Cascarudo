@@ -17,9 +17,26 @@ const useAuth = () => {
 
   const onAuthSuccess = async (data) => {
     const decodedToken = jwtDecode(data.token);
-    setUser(({ isLoggedIn: true, role: decodedToken.role.role, id: decodedToken.id, token: data.token }));
-    route("/user-profile")
+    const userData = {
+      isLoggedIn: true,
+      role: decodedToken.role.role,
+      id: decodedToken.id,
+      token: data.token
+    };
+
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    setUser(userData);
+    route("/user-profile", true)
   }
+
+  const getUserFromLocalstorage = () => {
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      return setUser({});
+    }
+    setUser(JSON.parse(userData));
+  };
 
   const { setUser } = userStore((state) => state);
   const loginMutation = useMutation({ mutationFn: (body) => loginUser(body), onSuccess: onAuthSuccess });
@@ -36,11 +53,19 @@ const useAuth = () => {
     return registerMutation;
   }
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser({});
+    route("/");
+  }
+
   return {
     login,
     loginError: loginMutation.error,
+    logout,
     register,
-    registerError: registerMutation.error
+    registerError: registerMutation.error,
+    getUserFromLocalstorage
   }
 }
 
