@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import Field from '../Field/Field';
 import useAuth from '../../hooks/useAuth';
 import Form from './Form';
+import FormContainer from './FormContainer';
 
 const fields = [
   {
@@ -40,7 +41,7 @@ const Register = () => {
     passwordConfirmation: "",
   });
 
-  console.log({registerError})
+  console.log({ registerError })
 
   const handleInputChange = (e) => {
     setFormData((oldState) => ({ ...oldState, [e.target.name]: e.target.value }))
@@ -52,23 +53,25 @@ const Register = () => {
   }
 
   return (
-    <Form title={"Registrarse "}>
-      {fields.map(input => {
-        return (
-          <Field
-            key={input.name}
-            type={input.type}
-            placeholder={input.placeholder}
-            name={input.name}
-            value={formData[input.name]}
-            label={input.label}
-            onChange={handleInputChange}
-          />
-        )
-      })}
-      <button onClick={handleLogin}>Registrarse</button>
-      {registerError && <p >{registerError.response.data.message}</p>}
-    </Form>
+    <FormContainer title={"Registrarse"}>
+      <Form>
+        {fields.map(input => {
+          return (
+            <Field
+              key={input.name}
+              type={input.type}
+              placeholder={input.placeholder}
+              name={input.name}
+              value={formData[input.name]}
+              label={input.label}
+              onChange={handleInputChange}
+            />
+          )
+        })}
+        <button onClick={handleLogin}>Registrarse</button>
+        {registerError && <p >{registerError.response.data.message}</p>}
+      </Form>
+    </FormContainer>
   )
 }
 
