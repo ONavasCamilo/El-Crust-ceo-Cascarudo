@@ -6,6 +6,6 @@ const productRouter = Router();
 
 productRouter.get("/", getProducts);
 
-productRouter.post("/create", createProduct);
+productRouter.post("/create", [verifyToken, isAdmin], createProduct);
 
 export default productRouter;
