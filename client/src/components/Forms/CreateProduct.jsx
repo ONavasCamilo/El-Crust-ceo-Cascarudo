@@ -1,6 +1,4 @@
 import Form from "./Form"
-import Field from '../Field/Field';
-import { useState } from "preact/hooks";
 import useProducts from "../../hooks/useProducts";
 
 const fields = [
@@ -33,44 +31,28 @@ const fields = [
   },
 ]
 
+const initialState = {
+  name: "",
+  price: "",
+  stock: "",
+  category: ""
+}
+
 const CreateProduct = () => {
-  const { createProduct, products } = useProducts()
-  const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    stock: "",
-    category: ""
-  });
+  const { createProduct } = useProducts();
 
-  const handleCreateProduct = (e) => {
-    e.preventDefault();
+  const handleCreateProduct = ({ event, formData }) => {
+    event.preventDefault();
     createProduct(formData)
-    console.log("creando producto", products.data)
-  }
-
-  const handleInputChange = (e) => {
-    setFormData((oldState) => ({ ...oldState, [e.target.name]: e.target.value }))
   }
 
   return (
-    <Form title={"Crear Producto"}>
-      {fields.map(input => {
-        return (
-          <Field
-            key={input.name}
-            type={input.type}
-            placeholder={input.placeholder}
-            name={input.name}
-            value={formData[input.name]}
-            label={input.label}
-            onChange={handleInputChange}
-            options={input.options}
-          />
-        )
-      })}
-      <button onClick={handleCreateProduct}>Crear Producto</button>
-      {/* {loginError && <p>{loginError.response.data.message}</p>} */}
-    </Form>
+    <Form
+      fields={fields}
+      initialState={initialState}
+      onSubmit={handleCreateProduct}
+      submitButtonText={"Crear Producto"}
+    />
   )
 }
 
