@@ -1,13 +1,20 @@
 import Form from "./Form"
 import Field from '../Field/Field';
 import { useState } from "preact/hooks";
+import useProducts from "../../hooks/useProducts";
 
 const fields = [
   {
     type: "text",
-    placeholder: "Coca Cola",
-    name: "product",
+    placeholder: "Producto",
+    name: "name",
     label: "Nombre del Producto"
+  },
+  {
+    type: "number",
+    placeholder: "4.5",
+    name: "price",
+    label: "Precio"
   },
   {
     type: "number",
@@ -15,17 +22,30 @@ const fields = [
     name: "stock",
     label: "Stock"
   },
+  {
+    type: "radio",
+    name: "category",
+    label: "Categoría",
+    options: [
+      { value: "food", label: "Food" },
+      { value: "drink", label: "Drink" }
+    ]
+  },
 ]
 
 const CreateProduct = () => {
+  const { createProduct, products } = useProducts()
   const [formData, setFormData] = useState({
-    username: "",
-    password: ""
+    name: "",
+    price: "",
+    stock: "",
+    category: ""
   });
 
   const handleCreateProduct = (e) => {
     e.preventDefault();
-    console.log("creando produto")
+    createProduct(formData)
+    console.log("creando producto", products.data)
   }
 
   const handleInputChange = (e) => {
@@ -44,6 +64,7 @@ const CreateProduct = () => {
             value={formData[input.name]}
             label={input.label}
             onChange={handleInputChange}
+            options={input.options}
           />
         )
       })}
