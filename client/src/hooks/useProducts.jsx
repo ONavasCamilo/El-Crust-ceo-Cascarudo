@@ -13,7 +13,7 @@ const useProducts = () => {
     const token = user.token
     const res = await axios.post("api/products/create", body, {
       headers: {
-        Authorization: `${token}`,
+        Authorization: token,
       },
     });
     return res.data;
