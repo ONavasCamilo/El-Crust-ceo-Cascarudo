@@ -7,7 +7,7 @@ const fields = [
   {
     type: "text",
     placeholder: "Producto",
-    name: "product",
+    name: "name",
     label: "Nombre del Producto"
   },
   {
@@ -36,7 +36,7 @@ const fields = [
 const CreateProduct = () => {
   const { createProduct, products } = useProducts()
   const [formData, setFormData] = useState({
-    product: "",
+    name: "",
     price: "",
     stock: "",
     category: ""
