@@ -1,5 +1,3 @@
-import { useState } from 'preact/hooks';
-import Field from '../Field/Field';
 import useAuth from '../../hooks/useAuth';
 import Form from './Form';
 import FormContainer from './FormContainer';
@@ -31,46 +29,30 @@ const fields = [
   },
 ]
 
+const initialState = {
+  username: "",
+  email: "",
+  password: "",
+  passwordConfirmation: "",
+};
+
 const Register = () => {
   const { register, registerError } = useAuth();
 
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-  });
-
-  console.log({ registerError })
-
-  const handleInputChange = (e) => {
-    setFormData((oldState) => ({ ...oldState, [e.target.name]: e.target.value }))
-  }
-
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = ({ event, formData }) => {
+    event.preventDefault();
     register(formData);
   }
 
   return (
     <FormContainer title={"Registrarse"}>
-      <Form>
-        {fields.map(input => {
-          return (
-            <Field
-              key={input.name}
-              type={input.type}
-              placeholder={input.placeholder}
-              name={input.name}
-              value={formData[input.name]}
-              label={input.label}
-              onChange={handleInputChange}
-            />
-          )
-        })}
-        <button onClick={handleLogin}>Registrarse</button>
-        {registerError && <p >{registerError.response.data.message}</p>}
-      </Form>
+      <Form
+        fields={fields}
+        initialState={initialState}
+        onSubmit={handleLogin}
+        errors={[registerError]}
+        submitButtonText={"Registrarse"}
+      />
     </FormContainer>
   )
 }
