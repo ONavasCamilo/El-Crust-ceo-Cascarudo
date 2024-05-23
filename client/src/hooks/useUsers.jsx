@@ -8,16 +8,16 @@ const useUsers = () => {
     const { user } = userStore.getState();
     const token = user.token;
 
-    const users = await axios("api/users", {
+    const response = await axios("api/users", {
       headers: {
         Authorization: token,
       },
     });
-    return users;
+    return response.data;
   };
 
   const users = useQuery({
-    useQuery: ["users"],
+    queryKey: ["users"],
     queryFn: getAllUsers,
     refetchOnWindowFocus: false,
   })
