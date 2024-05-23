@@ -1,16 +1,17 @@
 import useUsers from "../../hooks/useUsers";
 
 export const UsersList = () => {
-  const { data, error, isLoading } = useUsers();
-
-  if (isLoading) return <div>Loading resources owo</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const { data, isFetching, error } = useUsers();
 
   return (
-    <ul>
-      {data.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
+    <div>
+      {isFetching && <p>Cargando.. owo</p>}
+      {!isFetching &&
+        !error &&
+        data.map((user) => {
+          return <p key={user.username}>{user.username}</p>;
+        })}
+      {error && <p>Error</p>}
+    </div>
   );
 };
