@@ -25,7 +25,7 @@ const fields = [
     name: "category",
     label: "Categoría",
     options: [
-      { value: "food", label: "Food" },
+      { value: "burger", label: "Burger" },
       { value: "drink", label: "Drink" }
     ]
   },

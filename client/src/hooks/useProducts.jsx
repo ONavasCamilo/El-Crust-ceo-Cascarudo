@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-// import { jwtDecode } from "jwt-decode";
+import { userStore } from "../store/store";
 
 const useProducts = () => {
   const getProductsFromAPI = async () => {
@@ -9,13 +9,18 @@ const useProducts = () => {
   };
 
   const postCreateProductFromAPI = async (body) => {
-    const res = await axios.post("api/products/create", body);
+    const { user } = userStore.getState();
+    const token = user.token
+    const res = await axios.post("api/products/create", body, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return res.data;
   };
 
-  const createProductSucess = () => {
-    // jwtDecode(data.token)
-    console.log("creado");
+  const createProductSucess = (data) => {
+    console.log("creado", data);
   };
 
   const createProductMutation = useMutation({
@@ -23,7 +28,7 @@ const useProducts = () => {
     onSuccess: createProductSucess,
     onError: (error) => {
       console.error("Error al crear el producto:", error);
-    }
+    },
   });
 
   const createProduct = (body) => {
@@ -39,8 +44,8 @@ const useProducts = () => {
 
   return {
     products,
-    createProduct
-  }
+    createProduct,
+  };
 };
 
 export default useProducts;

@@ -1,10 +1,12 @@
-import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { userStore } from "../store/store";
 import { jwtDecode } from "jwt-decode";
 import { route } from "preact-router";
 
 const useAuth = () => {
+  const { setUser } = userStore((state) => state);
+
   const loginUser = async (body) => {
     const res = await axios.post("api/users/login", body);
     return res.data;
@@ -13,7 +15,7 @@ const useAuth = () => {
   const registerUser = async (body) => {
     const res = await axios.post("api/users/register", body);
     return res.data;
-  }
+  };
 
   const onAuthSuccess = async (data) => {
     const decodedToken = jwtDecode(data.token);
@@ -21,14 +23,14 @@ const useAuth = () => {
       isLoggedIn: true,
       role: decodedToken.role.role,
       id: decodedToken.id,
-      token: data.token
+      token: data.token,
     };
 
     localStorage.setItem("user", JSON.stringify(userData));
 
     setUser(userData);
-    route("/user-profile", true)
-  }
+    route("/user-profile", true);
+  };
 
   const getUserFromLocalstorage = () => {
     const userData = localStorage.getItem("user");
@@ -38,26 +40,31 @@ const useAuth = () => {
     setUser(JSON.parse(userData));
   };
 
-  const { setUser } = userStore((state) => state);
-  const loginMutation = useMutation({ mutationFn: (body) => loginUser(body), onSuccess: onAuthSuccess });
+  const loginMutation = useMutation({
+    mutationFn: (body) => loginUser(body),
+    onSuccess: onAuthSuccess,
+  });
 
-  const registerMutation = useMutation({ mutationFn: (body) => registerUser(body), onSuccess: onAuthSuccess });
+  const registerMutation = useMutation({
+    mutationFn: (body) => registerUser(body),
+    onSuccess: onAuthSuccess,
+  });
 
   const login = (body) => {
-    loginMutation.mutate(body)
+    loginMutation.mutate(body);
     return loginMutation;
-  }
+  };
 
   const register = (body) => {
     registerMutation.mutate(body);
     return registerMutation;
-  }
+  };
 
   const logout = () => {
     localStorage.removeItem("user");
     setUser({});
     route("/");
-  }
+  };
 
   return {
     login,
@@ -65,8 +72,8 @@ const useAuth = () => {
     logout,
     register,
     registerError: registerMutation.error,
-    getUserFromLocalstorage
-  }
-}
+    getUserFromLocalstorage,
+  };
+};
 
-export default useAuth
+export default useAuth;
