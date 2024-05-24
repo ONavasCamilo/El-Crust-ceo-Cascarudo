@@ -8,7 +8,7 @@ import { UserProfile } from '../Profile/UserProfile';
 import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'preact/hooks';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { UsersList } from '../../views/admin/usersList';
+import { UsersList } from '../Admin/UsersList';
 
 export const App = () => {
   const { user, getUserFromLocalstorage } = useAuth();
