@@ -27,6 +27,10 @@ const fields = [
     name: "passwordConfirmation",
     label: "Repetir contraseña"
   },
+  {
+    type: "button",
+    label: "Registrarse"
+  },
 ]
 
 const initialState = {
@@ -51,7 +55,6 @@ const Register = () => {
         initialState={initialState}
         onSubmit={handleLogin}
         errors={[registerError]}
-        submitButtonText={"Registrarse"}
       />
     </FormContainer>
   )

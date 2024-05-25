@@ -17,6 +17,10 @@ const fields = [
     label: "Contraseña",
     required: true,
   },
+  {
+    type: "button",
+    label: "Iniciar Sesión"
+  },
 ];
 
 const initialState = {
@@ -39,7 +43,6 @@ const Login = () => {
         initialState={initialState}
         onSubmit={handleLogin}
         errors={[loginError]}
-        submitButtonText={"Iniciar Sesión"}
       />
     </FormContainer>
   )

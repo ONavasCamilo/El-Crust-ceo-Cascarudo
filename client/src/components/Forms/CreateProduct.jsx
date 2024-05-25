@@ -29,6 +29,10 @@ const fields = [
       { value: "drink", label: "Drink" }
     ]
   },
+  {
+    type: "button",
+    label: "Crear Producto"
+  },
 ]
 
 const initialState = {
@@ -51,7 +55,6 @@ const CreateProduct = () => {
       fields={fields}
       initialState={initialState}
       onSubmit={handleCreateProduct}
-      submitButtonText={"Crear Producto"}
     />
   )
 }

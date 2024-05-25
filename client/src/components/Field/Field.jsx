@@ -13,7 +13,7 @@ const Field = ({
 }) => {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      {type !== "button" && <label htmlFor={name}>{label}</label>}
       {
         type === "radio" ?
           options?.map(option => (
@@ -26,15 +26,17 @@ const Field = ({
               required={required}
             />
           ))
-          : // if not type radio
-          <Input
-            value={value}
-            placeholder={placeholder}
-            name={name}
-            onChange={onChange}
-            required={required}
-            type={type}
-          />
+          : type === "button" ?
+            <button>{label}</button>
+            : // if type is not radio or button
+            <Input
+              value={value}
+              placeholder={placeholder}
+              name={name}
+              onChange={onChange}
+              required={required}
+              type={type}
+            />
       }
     </>
   );

@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import Field from '../Field/Field'
 import style from './Form.module.css'
 
-const Form = ({ fields, initialState, onSubmit, errors, submitButtonText }) => {
+const Form = ({ fields, initialState, onSubmit, errors }) => {
   const [formData, setFormData] = useState(initialState);
 
   const handleInputChange = (e) => {
@@ -26,7 +26,6 @@ const Form = ({ fields, initialState, onSubmit, errors, submitButtonText }) => {
           />
         )
       })}
-      <button>{submitButtonText || "Aceptar"}</button>
       {errors?.some(er => er != null) && errors.map(error => {
         return <p key={error.response.data.message}>{error.response.data.message}</p>
       }
