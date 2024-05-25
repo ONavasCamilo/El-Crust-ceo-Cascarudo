@@ -28,6 +28,11 @@ const routes = [
     label: "Crear Producto",
     showIfAdmin: true,
   },
+  {
+    path: "/admin",
+    label: "Admin",
+    showIfAdmin: true,
+  },
 ]
 
 const Header = () => {

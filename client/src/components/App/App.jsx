@@ -8,6 +8,7 @@ import { UserProfile } from '../Profile/UserProfile';
 import useAuth from '../../hooks/useAuth';
 import { useEffect } from 'preact/hooks';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { UsersList } from '../../views/admin/usersList';
 
 export const App = () => {
   const { user, getUserFromLocalstorage } = useAuth();
@@ -26,6 +27,7 @@ export const App = () => {
         <Login path="/login" />
         <Register path="/register" />
         <CreateProduct path="/create-product" />
+        <UsersList path="admin" />
         <ProtectedRoute path="/user-profile" component={UserProfile} />
       </Router>
     </>
