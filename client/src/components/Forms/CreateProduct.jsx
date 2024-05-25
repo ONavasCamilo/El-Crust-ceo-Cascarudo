@@ -1,7 +1,7 @@
 import Form from "./Form"
-import useProducts from "../../hooks/useProducts";
+import useProducts from "@hooks/useProducts";
 import FormContainer from './FormContainer';
-import { createProductFields, createProductInitialState } from "../../config/formConfig";
+import { createProductFields, createProductInitialState } from "@config/formConfig";
 
 const CreateProduct = () => {
   const { createProduct } = useProducts();

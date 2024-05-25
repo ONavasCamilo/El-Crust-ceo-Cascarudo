@@ -1,4 +1,4 @@
-import { getInitialState } from "../utils/formUtils";
+import { getInitialState } from "@utils/formUtils";
 
 export const loginFields = [
   {

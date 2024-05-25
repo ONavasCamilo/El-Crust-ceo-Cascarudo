@@ -1,5 +1,5 @@
-import { registerFields, registerInitialState } from '../../config/formConfig';
-import useAuth from '../../hooks/useAuth';
+import { registerFields, registerInitialState } from '@config/formConfig';
+import useAuth from '@hooks/useAuth';
 import Form from './Form';
 import FormContainer from './FormContainer';
 
