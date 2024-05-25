@@ -24,6 +24,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
     return res.status(201).json(product);
   } catch (error) {
+    console.log(error)
     if (error instanceof Error) {
       return res.status(400).send({ statusCode: 400, message: error.message });
     }
