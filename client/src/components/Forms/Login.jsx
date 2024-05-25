@@ -7,13 +7,15 @@ const fields = [
     type: "text",
     placeholder: "User1234",
     name: "username",
-    label: "Nombre de Usuario"
+    label: "Nombre de Usuario",
+    required: true,
   },
   {
     type: "password",
     placeholder: "*********",
     name: "password",
-    label: "Contraseña"
+    label: "Contraseña",
+    required: true,
   },
 ];
 

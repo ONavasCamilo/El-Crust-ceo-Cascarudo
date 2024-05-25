@@ -22,6 +22,7 @@ const Form = ({ fields, initialState, onSubmit, errors, submitButtonText }) => {
             label={field.label}
             onChange={handleInputChange}
             options={field.options}
+            required={field.required}
           />
         )
       })}

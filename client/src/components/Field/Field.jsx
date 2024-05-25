@@ -9,6 +9,7 @@ const Field = ({
   label,
   value,
   options,
+  required,
 }) => {
   return (
     <>
@@ -22,6 +23,7 @@ const Field = ({
               option={option}
               value={value}
               onChange={onChange}
+              required={required}
             />
           ))
           : // if not type radio
@@ -30,6 +32,8 @@ const Field = ({
             placeholder={placeholder}
             name={name}
             onChange={onChange}
+            required={required}
+            type={type}
           />
       }
     </>
