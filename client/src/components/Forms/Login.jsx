@@ -1,32 +1,7 @@
+import { loginFields, loginInitialState } from '../../config/formConfig';
 import useAuth from '../../hooks/useAuth';
 import Form from './Form';
 import FormContainer from './FormContainer';
-
-const fields = [
-  {
-    type: "text",
-    placeholder: "User1234",
-    name: "username",
-    label: "Nombre de Usuario",
-    required: true,
-  },
-  {
-    type: "password",
-    placeholder: "*********",
-    name: "password",
-    label: "Contraseña",
-    required: true,
-  },
-  {
-    type: "button",
-    label: "Iniciar Sesión"
-  },
-];
-
-const initialState = {
-  username: "",
-  password: ""
-}
 
 const Login = () => {
   const { login, loginError } = useAuth();
@@ -39,8 +14,8 @@ const Login = () => {
   return (
     <FormContainer title={"Iniciar Sesión"}>
       <Form
-        fields={fields}
-        initialState={initialState}
+        fields={loginFields}
+        initialState={loginInitialState}
         onSubmit={handleLogin}
         errors={[loginError]}
       />
