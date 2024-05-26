@@ -1,6 +1,6 @@
 import style from './Field.module.css'
 
-const Input = ({ type, value, name, placeholder, onChange }) => {
+const Input = ({ type, value, name, placeholder, onChange, required }) => {
   return (
     <input
       className={style.input}
@@ -9,6 +9,8 @@ const Input = ({ type, value, name, placeholder, onChange }) => {
       placeholder={placeholder}
       name={name}
       onChange={onChange}
+      required={required}
+      id={name}
     />
   )
 }
