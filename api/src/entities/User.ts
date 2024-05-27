@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToMany } from "typeorm";
 import { Role } from "./Role";
 import { randomUUID } from "crypto";
+import { Shopcart } from "./Shopcart";
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -15,6 +16,9 @@ export class User extends BaseEntity {
 
   @ManyToOne(() => Role, (role) => role.user)
   role: Role;
+
+  @OneToMany(() => Shopcart, (shopcart) => shopcart.user)
+  shopcart: Shopcart;
 
   @CreateDateColumn()
   createdAt: Date;

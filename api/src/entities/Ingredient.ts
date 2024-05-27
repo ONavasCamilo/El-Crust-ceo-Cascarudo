@@ -1,20 +1,21 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./Product";
+import { randomUUID } from "crypto";
 
 @Entity("ingredients")
 export class Ingredient {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string = randomUUID();
   @Column({ type: "integer", nullable: true })
-  meat: number
+  meat: number;
   @Column({ type: "integer", nullable: true })
-  lettuce: number
+  lettuce: number;
   @Column({ type: "integer", nullable: true })
-  tomato: number
+  tomato: number;
   @Column({ type: "integer", nullable: true })
-  cheese: number
+  cheese: number;
   @Column({ type: "integer", nullable: true })
-  onion: number
+  onion: number;
   @OneToMany(() => Product, (product) => product.ingredients)
   product: Product;
 }

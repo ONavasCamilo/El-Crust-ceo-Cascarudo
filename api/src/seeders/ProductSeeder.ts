@@ -49,7 +49,7 @@ export const seedProducts = async () => {
   const productPromises = INITIAL_PRODUCTS.map(product => {
     let actualIngredients = undefined;
     if (product.category === Categories.BURGER) {
-      actualIngredients = ingredients.find(ing => ing.id === 1);
+      actualIngredients = ingredients.find(ing => ing);
     }
 
     const objProduct = {

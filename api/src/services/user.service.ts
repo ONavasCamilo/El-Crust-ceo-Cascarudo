@@ -1,11 +1,12 @@
 import { UserModel } from "../config/data-source";
-import { hashPassword } from "../utils/passwordManager";
+import { hashPassword } from "../utils/passwordManager.utils";
 import RoleModel from "../repositories/rol.repository";
 import {
   DeleteUser,
   LoginUser,
   RegisterUser,
 } from "./../interfaces/user.interface";
+import ShopcartModel from "../repositories/shopcart.repository";
 
 export const getUsersService = async () => {
   const users = await UserModel.find();
@@ -42,13 +43,14 @@ export const registerUserService = async ({
   const newUser = UserModel.create({ username, password: passwordHash, email });
   await RoleModel.asignRole(newUser);
   await newUser.save();
+  await ShopcartModel.createShopcart(newUser)
   return newUser;
 };
 
 export const loginUserService = async ({ username, email }: LoginUser) => {
   return username
-    ? await UserModel.findOne({ where: { username }, relations: ["role"] })
-    : await UserModel.findOne({ where: { email }, relations: ["role"] });
+    ? await UserModel.findOne({ where: { username }, relations: ["role", "shopcart"] })
+    : await UserModel.findOne({ where: { email }, relations: ["role", "shopcart"] });
 };
 
 export const deleteUserService = async ({

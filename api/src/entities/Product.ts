@@ -1,11 +1,18 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Category } from "./Category";
 import { Ingredient } from "./Ingredient";
+import { randomUUID } from "crypto";
 
 @Entity("products")
 export class Product extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string = randomUUID();
   @Column({ unique: true })
   name: string;
   @Column({ type: "float" })

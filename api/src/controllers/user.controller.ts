@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
-import { comparePasswords } from "../utils/passwordManager";
+import { comparePasswords } from "../utils/passwordManager.utils";
 import { SECRET } from "../config/envs";
 import { deleteUserService, getUserService, getUsersService, loginUserService, registerUserService } from "../services/user.service";
+import session from "../utils/sessionManager.utils";
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -41,7 +42,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const { username, password, email } = req.body;
     if (!username || !password || !email) return res.status(401).send({ message: "Username, password and email are required fields.", statusCode: 401 });
     const newUser = await registerUserService({ username, password, email })
-    const token = jwt.sign({ id: newUser.id, role: newUser.role }, SECRET, { expiresIn: 86400 });
+    const token = session.sign(newUser)
     return res.status(201).json({ token });
   } catch (e) {
     console.log(e)
@@ -66,9 +67,9 @@ export const loginUser = async (req: Request, res: Response) => {
 
     if (!passwordIsCorrect) return res.status(401).send({ status: 401, message: "Incorrect credentials" });
 
-    const token = jwt.sign({ id: userFound.id, role: userFound.role }, SECRET, { expiresIn: 86400 });
+    const token = session.sign(userFound);
 
-    return res.json({ token });
+    return res.json({ token, userFound });
   } catch (e) {
     console.log(e)
 

@@ -1,11 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from "typeorm";
+import { randomUUID } from "crypto";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
 import { User } from "./User";
 import { Product } from "./Product";
 
 @Entity("shopcarts")
 export class Shopcart {
-  @PrimaryGeneratedColumn({ type: "int" })
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string = randomUUID();
 
   @ManyToOne(() => User)
   user: User;
