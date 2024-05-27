@@ -16,6 +16,7 @@ export const verifyToken = async (req: SessionRequest, res: Response, next: Next
     next();
 
   } catch (error) {
+    console.log(error)
     return res.status(500).send({ error })
   }
 }
@@ -34,6 +35,7 @@ export const isAdmin = async (req: SessionRequest, res: Response, next: NextFunc
     return res.status(401).json({ msg: "Unauthorized" })
 
   } catch (error) {
+    console.log(error)
     return res.status(500).send({ error })
   }
 }

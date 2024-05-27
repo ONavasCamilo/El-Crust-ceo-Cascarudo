@@ -1,6 +1,6 @@
 import { Route, route } from "preact-router";
 import { useEffect } from "preact/hooks"
-import { userStore } from "../../store/store";
+import { userStore } from "@store/store";
 
 const ProtectedRoute = ({ ...props }) => {
   const { user, loading } = userStore((state) => state);

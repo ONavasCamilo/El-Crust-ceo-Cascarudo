@@ -5,7 +5,7 @@ import Login from './../Forms/Login';
 import Register from '../Forms/Register';
 import CreateProduct from '../Forms/CreateProduct';
 import { UserProfile } from '../Profile/UserProfile';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '@hooks/useAuth';
 import { useEffect } from 'preact/hooks';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { UsersList } from '../Admin/UsersList';

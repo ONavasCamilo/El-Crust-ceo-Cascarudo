@@ -1,42 +1,7 @@
 import Form from "./Form"
-import useProducts from "../../hooks/useProducts";
-
-const fields = [
-  {
-    type: "text",
-    placeholder: "Producto",
-    name: "name",
-    label: "Nombre del Producto"
-  },
-  {
-    type: "number",
-    placeholder: "4.5",
-    name: "price",
-    label: "Precio"
-  },
-  {
-    type: "number",
-    placeholder: "50",
-    name: "stock",
-    label: "Stock"
-  },
-  {
-    type: "radio",
-    name: "category",
-    label: "Categoría",
-    options: [
-      { value: "burger", label: "Burger" },
-      { value: "drink", label: "Drink" }
-    ]
-  },
-]
-
-const initialState = {
-  name: "",
-  price: "",
-  stock: "",
-  category: ""
-}
+import useProducts from "@hooks/useProducts";
+import FormContainer from './FormContainer';
+import { createProductFields, createProductInitialState } from "@config/formConfig";
 
 const CreateProduct = () => {
   const { createProduct } = useProducts();
@@ -47,12 +12,13 @@ const CreateProduct = () => {
   }
 
   return (
-    <Form
-      fields={fields}
-      initialState={initialState}
-      onSubmit={handleCreateProduct}
-      submitButtonText={"Crear Producto"}
-    />
+    <FormContainer>
+      <Form
+        fields={createProductFields}
+        initialState={createProductInitialState}
+        onSubmit={handleCreateProduct}
+      />
+    </FormContainer>
   )
 }
 

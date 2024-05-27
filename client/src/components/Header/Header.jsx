@@ -1,39 +1,8 @@
 import { Link } from 'preact-router/match';
 import style from './Header.module.css'
-import { userStore } from '../../store/store';
-import useAuth from '../../hooks/useAuth';
-
-const routes = [
-  {
-    path: "/",
-    label: "Home"
-  },
-  {
-    path: "/login",
-    label: "Login",
-    showIfOffline: true,
-  },
-  {
-    path: "/register",
-    label: "Registrarse",
-    showIfOffline: true,
-  },
-  {
-    path: "/user-profile",
-    label: "Perfil",
-    showIfUser: true,
-  },
-  {
-    path: "/create-product",
-    label: "Crear Producto",
-    showIfAdmin: true,
-  },
-  {
-    path: "/admin",
-    label: "Admin",
-    showIfAdmin: true,
-  },
-]
+import { userStore } from '@store/store';
+import useAuth from '@hooks/useAuth';
+import { routes } from '@config/routes';
 
 const Header = () => {
   const { user } = userStore((state) => state);
